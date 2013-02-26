@@ -18,11 +18,20 @@ class Counter < Sinatra::Base
 	end
 
 	put '/count/1' do
-		count = params[:count]
+		count = 0
+		File.open('data/count.csv') do |f|
+			count = f.read.chop.to_i
+		end
+		command = params[:command]
+		if command == 'add'
+			count += 1
+		elsif command == 'minus'
+			count -= 1
+		end
 		File.open('data/count.csv', 'w') do |f|
 			f.puts count
 		end
-		'True'
+		count.to_s
 	end
 	run!
 end
