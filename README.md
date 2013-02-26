@@ -1,0 +1,4 @@
+counter
+=======
+
+a simple counter
